@@ -1,39 +1,28 @@
 import { useState } from 'react'
 import './App.css'
+import Li from './components/Li'
+import InputArea from './components/InputArea'
 
 function App() {
-  const [input, setInput] = useState("")
+  
   const [item, setItem] = useState([])
-  function handleInput(e){
-    const newValue = e.target.value;
-    setInput(newValue)
-  }
-
-  function handleClick(){
+  
+  function handleClick(input){
     setItem((preValue)=>{
       return [...preValue, input]
     })
-    setInput("")
+    
   }
+  
   return (
     <div className="container">
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <div className="form">
-        <input type="text" 
-        value={input}
-          onChange={handleInput}
-        />
-        <button
-        onClick={handleClick}
-        >
-          <span>Add</span>
-        </button>
-      </div>
+      <InputArea click={handleClick}  />
       <div>
         <ul>
-          {item.map(values => <li>{values}</li>  )}
+          {item.map((values,index) => <Li text={values} key={index} /> )}
         </ul>
       </div>
     </div>
